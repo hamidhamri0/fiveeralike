@@ -1,7 +1,7 @@
 import React from "react";
 import { FaCheck } from "react-icons/fa";
-import { twMerge } from "tailwind-merge";
 import Button from "./smallComponents/Button";
+
 type Feature = {
   name: string;
   value: boolean | string;
@@ -18,30 +18,6 @@ type Package = {
 type PricingPackages = {
   [key: string]: Package;
 };
-
-function PricingButton({
-  children,
-  className,
-  isActive,
-  onClick,
-}: {
-  children: string;
-  className?: string;
-  isActive: boolean;
-  onClick: () => void;
-}) {
-  className = twMerge(
-    `text-black py-3 w-full text-lg px-4 bg-gray-100 font-semibold border-r border-r-gray-300 ${
-      isActive ? "border-b-2 border-b-black" : "border-b-2 border-b-transparent"
-    }`,
-    className,
-  );
-  return (
-    <button onClick={onClick} className={className}>
-      {children}
-    </button>
-  );
-}
 
 const pricingPackages: PricingPackages = {
   Basic: {
