@@ -9,6 +9,7 @@ import { createPortal } from "react-dom";
 import { useOutsideClick } from "../useHooks/useOutsideClick";
 import { OpenArrow } from "./Footer";
 import { twMerge } from "tailwind-merge";
+import Btn from "./smallComponents/Button";
 
 interface MenusContextType {
   openId: string;
@@ -16,6 +17,8 @@ interface MenusContextType {
   open: (id: string) => void;
   position: { x: number; y: number } | null;
   setPosition: (position: { x: number; y: number }) => void;
+  setLastClickedLabel: (label: string) => void;
+  lastClickedLabel: string;
 }
 
 export const MenusContext = createContext<MenusContextType | undefined>(
@@ -32,6 +35,7 @@ function Menus({ children, doSomethingWhenClosed }: MenusProps) {
   const [position, setPosition] = useState<{ x: number; y: number } | null>(
     null,
   );
+  const [lastClickedLabel, setLastClickedLabel] = useState<string>("");
 
   const close = () => {
     setOpenId("");
@@ -41,7 +45,15 @@ function Menus({ children, doSomethingWhenClosed }: MenusProps) {
 
   return (
     <MenusContext.Provider
-      value={{ openId, close, open, position, setPosition }}
+      value={{
+        openId,
+        close,
+        open,
+        position,
+        setPosition,
+        lastClickedLabel,
+        setLastClickedLabel,
+      }}
     >
       {children}
     </MenusContext.Provider>
@@ -97,7 +109,7 @@ function List({ id, children, className = "" }: ListProps) {
   console.log(openId !== id, " ", openId, " ", id);
 
   let { x, y } = position;
-  className = `absolute z-50` + className;
+  className = twMerge("absolute z-50", className);
   return createPortal(
     <div
       style={{ left: `${Math.floor(x)}px`, top: `${Math.floor(y)}px` }}
@@ -121,14 +133,14 @@ function DropDown({ label, id, className = "" }: DropDownProps) {
   if (!context) {
     throw new Error("List must be used within a Menus");
   }
-  const { openId } = context;
+  const { openId, lastClickedLabel } = context;
   className = twMerge(
     "flex cursor-pointer gap-3 rounded-md px-4 py-2 text-lg text-gray-900 hover:bg-gray-100 hover:bg-opacity-70",
     className,
   );
   return (
     <a className={className}>
-      <span className="font-semibold">{label}</span>
+      <span className="font-semibold">{lastClickedLabel || label}</span>
       <OpenArrow className="!flex" isOpen={openId == id} />
     </a>
   );
@@ -145,20 +157,18 @@ function Button({ children, icon, onClick }: ButtonProps) {
   if (!context) {
     throw new Error("Button must be used within a Menus");
   }
-  const { close } = context;
+  const { close, setLastClickedLabel } = context;
 
   function handleClick() {
     onClick?.();
+    setLastClickedLabel(children as string);
     close();
   }
 
   return (
-    <li>
-      <div onClick={handleClick}>
-        {icon}
-        <span>{children}</span>
-      </div>
-    </li>
+    <Btn color="white" className="mb-2" onClick={handleClick}>
+      {children as string}
+    </Btn>
   );
 }
 

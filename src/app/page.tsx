@@ -31,10 +31,109 @@ import SearchResults from "./components/SearchResults";
 import GigOverview from "./components/GigOverview";
 import SlideShow from "./components/SlideShow";
 import ReviewsCarousel from "./components/ReviewsCarousel";
+import UserProfileCard from "./components/UserProfileCard";
+import Reviews from "./components/Reviews";
+import RelatedTags from "./components/smallComponents/RelatedTags";
+import ActionToolbar from "./components/ActionToolbar";
+import PricingPackageCard from "./components/PricingPackageCard";
+import PackagesTable from "./components/PackagesTable";
+import UserProfile from "./components/UserProfile";
 
 //bg-[url('/bigImages/ProgrammingBanner.webp')
 
-let s = "/bigImages/ProgrammingBanner.webp";
+const reviews = [
+  {
+    reviewer: {
+      username: "john_doe",
+      image: "/smallImages/data-science.webp",
+      country: "USA",
+    },
+    rating: {
+      "1": 0,
+      "2": 0,
+      "3": 1,
+      "4": 2,
+      "5": 3,
+    },
+    review: "Great product, highly recommend!",
+    duration: "2 weeks",
+    price: 49.99,
+    date: "2021-09-01",
+  },
+  {
+    reviewer: {
+      username: "jane_smith",
+      image: "/smallImages/data-science.webp",
+      country: "Canada",
+    },
+    rating: {
+      "1": 0,
+      "2": 1,
+      "3": 0,
+      "4": 3,
+      "5": 1,
+    },
+    review: "Good value for the price.",
+    duration: "1 month",
+    price: 39.99,
+    date: "2021-09-01",
+  },
+  {
+    reviewer: {
+      username: "alice_jones",
+      image: "/smallImages/data-science.webp",
+      country: "UK",
+    },
+    rating: {
+      "1": 0,
+      "2": 0,
+      "3": 2,
+      "4": 1,
+      "5": 2,
+    },
+    review: "Satisfied with the purchase.",
+    duration: "3 weeks",
+    price: 59.99,
+    date: "2021-02-05",
+  },
+  {
+    reviewer: {
+      username: "bob_brown",
+      image: "/smallImages/data-science.webp",
+      country: "Australia",
+    },
+    rating: {
+      "1": 1,
+      "2": 0,
+      "3": 1,
+      "4": 2,
+      "5": 1,
+    },
+    review: "Average quality, could be better.",
+    duration: "2 months",
+    price: 29.99,
+    date: "2021-07-04",
+  },
+  {
+    reviewer: {
+      username: "charlie_davis",
+      image: "/smallImages/data-science.webp",
+      country: "Germany",
+    },
+    rating: {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 4,
+      "5": 1,
+    },
+    review: "Exceeded my expectations!",
+    duration: "1 week",
+    price: 69.99,
+    date: "2021-08-01",
+  },
+];
+
 export default function Home() {
   return (
     <div className="h-full w-full text-[#74767e] dark:bg-gray-800 dark:text-gray-200">
@@ -58,7 +157,24 @@ export default function Home() {
           "/images/E1.webp",
         ]}
       /> */}
-      <ReviewsCarousel />
+      {/* <ReviewsCarousel /> */}
+      <UserProfileCard />
+      <Reviews
+        allRatings={600}
+        eachRating={{
+          "1": 150,
+          "2": 20,
+          "3": 80,
+          "4": 50,
+          "5": 300,
+        }}
+        reviews={reviews}
+      />
+      {/* <RelatedTags /> */}
+      {/* <ActionToolbar /> */}
+      {/* <PricingPackageCard /> */}
+      {/* <PackagesTable /> */}
+      <UserProfile />
       {/* <RoundedCategoryCarousel /> */}
       {/* <FiltersComponent /> */}
       {/* <SelectedFilters /> */}

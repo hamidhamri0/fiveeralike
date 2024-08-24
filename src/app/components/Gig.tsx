@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { FaChevronLeft, FaChevronRight, FaHeart, FaStar } from "react-icons/fa";
 import { HiOutlineVideoCamera } from "react-icons/hi2";
-import { MdVerified } from "react-icons/md";
 import { twMerge } from "tailwind-merge";
+import LevelRatingCard from "./smallComponents/LevelRatingCard";
 
 type GigParam = {
   profileImage: string;
@@ -15,54 +15,6 @@ type GigParam = {
   pro: boolean;
   classNameForImage?: string;
 };
-
-export function BoxLevelRating({ pro }: { pro?: boolean }) {
-  const MAX_RATING = 3;
-  const [rating, setRating] = useState(2);
-  return (
-    <div
-      className={`ml-auto flex items-center justify-center gap-1 rounded-lg ${rating == 3 ? "bg-[#FFE0B3]" : "bg-transparent"} px-2`}
-    >
-      {!pro && (
-        <span
-          className={`text-sm font-bold ${rating == 3 ? "text-[#804317]" : "text-black"}`}
-        >
-          {rating == 3 ? "Top Rated" : "Level " + rating}
-        </span>
-      )}
-      {!pro &&
-        Array.from({ length: rating }, (_, index) => {
-          return (
-            <span
-              key={index}
-              className={`${rating == 3 ? "text-[#804317]" : "text-black"} `}
-            >
-              &#9830;
-            </span>
-          );
-        })}
-      {!pro &&
-        MAX_RATING - rating > 0 &&
-        Array.from({ length: MAX_RATING - rating }, (_, index) => {
-          return (
-            <span key={index} className="text-[#000000] opacity-40">
-              &#9830;
-            </span>
-          );
-        })}
-      {pro && <ProBox />}
-    </div>
-  );
-}
-
-function ProBox() {
-  return (
-    <div className="ml-auto flex items-center justify-center gap-1 rounded-lg bg-[#2E25AD] px-2">
-      <MdVerified fill="white" size={15} />
-      <span className="text-sm font-semibold text-gray-200">Pro</span>
-    </div>
-  );
-}
 
 const ImageSlider = ({
   gigImages,
@@ -166,7 +118,7 @@ export default function Gig({
           {username}
         </h3>
 
-        <BoxLevelRating pro={pro} />
+        <LevelRatingCard rating={3} />
       </div>
       <p className="mb-4 line-clamp-2 cursor-pointer overflow-hidden font-medium transition-all hover:underline">
         {description}

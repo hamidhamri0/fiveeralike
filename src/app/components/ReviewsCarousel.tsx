@@ -2,6 +2,7 @@ import React from "react";
 import GridSlider from "./GridSlider";
 import { FaStar } from "react-icons/fa";
 import { formatDistanceToNow } from "date-fns";
+import RatingStarsCard from "./smallComponents/RatingStarsCard";
 
 const reviews: ReviewItemProps[] = [
   {
@@ -91,15 +92,7 @@ function ReviewItem({
           <h3 className="whitespace-nowrap font-bold text-gray-900">{name}</h3>
           <p className="text-sm">{country}</p>
           <span className="h-[90%] w-[0.5px] bg-gray-200"></span>
-          <div className="flex gap-1">
-            {Array.from({ length: rating }).map((_, index) => {
-              return (
-                <span key={index}>
-                  <FaStar size={20} />
-                </span>
-              );
-            })}
-          </div>
+          <RatingStarsCard rating={rating} />
         </div>
         <div>
           <p className="text-gray-900">
@@ -109,7 +102,7 @@ function ReviewItem({
                 onClick={() => setShowMore((p) => !p)}
                 className="text-blue-500"
               >
-                {showMore ? "Show less" : "... Show more"}
+                {showMore ? " Show less" : "... Show more"}
               </span>
             )}
           </p>
@@ -128,7 +121,7 @@ export default function ReviewsCarousel() {
         <h2 className="text-2xl font-semibold">
           What people loved about this freelancer
         </h2>
-        <a className="font-semibold" href="#">
+        <a className="font-semibold transition-all hover:underline" href="#">
           See all reviews
         </a>
       </div>

@@ -1,16 +1,7 @@
 import React from "react";
-import { BoxLevelRating } from "./Gig";
 import { FaStar } from "react-icons/fa";
-
-function BoxRating({ rating, count }: { rating: number; count: number }) {
-  return (
-    <div className="flex items-center gap-1">
-      <FaStar size={17} />
-      <span className="font-bold">{rating} </span>
-      <span className="text-gray-500 underline">({count})</span>
-    </div>
-  );
-}
+import LevelRatingCard from "./smallComponents/LevelRatingCard";
+import RatingCard from "./smallComponents/RatingCard";
 
 export default function GigOverview() {
   return (
@@ -31,11 +22,11 @@ export default function GigOverview() {
             <span className="font-semibold">Kimberly R</span>
             <span className="h-[90%] w-[0.5px] bg-gray-200"></span>
             <div>
-              <BoxLevelRating />
+              <LevelRatingCard rating={3} />
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <BoxRating count={47} rating={4.9} />
+            <RatingCard count={47} rating={4.9} />
             <span className="h-[90%] w-[0.5px] bg-gray-200"></span>
             <span className="text-sm text-gray-500">4 orders in queue</span>
           </div>
